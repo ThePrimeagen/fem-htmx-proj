@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"io"
 	"strconv"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -157,6 +158,8 @@ func main() {
         if !deleted {
             return c.String(400, "Contact not found")
         }
+
+        time.Sleep(2 * time.Second)
 
 		return c.NoContent(200)
 	})
