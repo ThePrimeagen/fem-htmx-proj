@@ -45,7 +45,7 @@
 
 {{ block "contact" . }}
 <div class="contact" style="display: flex;">
-    <div hx-delete="/contacts/{{ .Id }}" hx-swap="outerHTML" hx-target="closest .contact" style="cursor: pointer; width: 24px; height: 24px">
+    <div hx-indicator="#di-{{ .Id }}" hx-delete="/contacts/{{ .Id }}" hx-swap="outerHTML swap:500ms" hx-target="closest .contact" style="cursor: pointer; width: 24px; height: 24px">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path fill="none" d="M0 0h24v24H0z"/>
             <path d="M4 2h16a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1zM3 6h18v16a1 1 0 01-1 1H4a1 1 0 01-1-1V6zm3 3v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0z"/>
@@ -55,7 +55,7 @@
     <b>Name:</b> <span>{{ .Name }}</span>
     <b>Email:</b> <span>{{ .Email }}</span>
 
-    <div class="delete-indicator" style="width: 24px; height: 24px">
+    <div id="di-{{ .Id }}" class="htmx-indicator" style="width: 24px; height: 24px">
         <img src="/images/bars.svg" alt="loading" style="width: 24px; height: 24px">
     </div>
 

@@ -101,6 +101,8 @@ func main() {
 
 	e.Renderer = newTemplate()
 	e.Use(middleware.Logger())
+    e.Static("/images", "images")
+    e.Static("/css", "css")
 
 	e.GET("/", func(c echo.Context) error {
 		return c.Render(200, "index.html", NewPageData(*data, NewFormData()))
@@ -159,7 +161,7 @@ func main() {
             return c.String(400, "Contact not found")
         }
 
-        time.Sleep(2 * time.Second)
+        time.Sleep(1 * time.Second)
 
 		return c.NoContent(200)
 	})
