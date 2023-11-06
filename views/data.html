@@ -1,0 +1,70 @@
+{{ block "contact-form" . }}
+<form id="contact-form" hx-post="/contacts" hx-swap="outerHTML">
+    <label for="name">Name</label>
+    <input name="name"
+        {{ if .Values }}
+            {{ if .Values.name }}
+                value="{{ .Values.name }}"
+            {{ end }}
+        {{ end }}
+        placeholder="Name">
+
+        {{ if (.Errors) }}
+            {{ if (.Errors.name) }}
+                <div class="error">{{ .Errors.name }}</div>
+            {{ end }}
+        {{ end }}
+
+    <label for="email">Email</label>
+    <input type="email"
+        {{ if (.Values) }}
+            {{ if (.Values.email) }}
+                value="{{ .Values.email }}"
+            {{ end }}
+        {{ end }}
+        name="email" placeholder="Email">
+
+        {{ if (.Errors) }}
+            {{ if (.Errors.email) }}
+                <div class="error">{{ .Errors.email }}</div>
+            {{ end }}
+        {{ end }}
+
+    <button type="submit">Submit</button>
+</form>
+{{ end }}
+
+{{ block "display" . }}
+    <div id="contacts">
+    {{ range .Contacts }}
+        {{ template "contact" . }}
+    {{ end }}
+    </div>
+{{ end }}
+
+
+{{ block "contact" . }}
+<div class="contact" style="display: flex;">
+    <div hx-delete="/contacts/{{ .Id }}" hx-swap="outerHTML" hx-target="closest .contact" style="cursor: pointer; width: 24px; height: 24px">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="none" d="M0 0h24v24H0z"/>
+            <path d="M4 2h16a1 1 0 011 1v1a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1zM3 6h18v16a1 1 0 01-1 1H4a1 1 0 01-1-1V6zm3 3v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0zm5 0v9a1 1 0 002 0v-9a1 1 0 00-2 0z"/>
+        </svg>
+    </div>
+
+    <b>Name:</b> <span>{{ .Name }}</span>
+    <b>Email:</b> <span>{{ .Email }}</span>
+</div>
+{{ end }}
+
+{{ block "oob-contact" . }}
+<div hx-swap-oob="beforebegin" id="contacts">
+    {{ template "contact" . }}
+</div>
+{{ end }}
+
+{{ block "test" . }}
+<div>
+__TESTING__
+</div>
+{{ end }}

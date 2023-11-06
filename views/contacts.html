@@ -1,0 +1,57 @@
+{{ block "contact-form" . }}
+<form id="contact-form" hx-post="/contacts" hx-target="#contacts" hx-swap="beforeend">
+    <label for="name">Name</label>
+    <input name="name"
+        {{ if .Values }}
+            {{ if .Values.name }}
+                value="{{ .Values.name }}"
+            {{ end }}
+        {{ end }}
+        placeholder="Name">
+
+        {{ if (.Errors) }}
+            {{ if (.Errors.name) }}
+                <div class="error">{{ .Errors.name }}</div>
+            {{ end }}
+        {{ end }}
+
+    <label for="email">Email</label>
+    <input type="email"
+        {{ if (.Values) }}
+            {{ if (.Values.email) }}
+                value="{{ .Values.email }}"
+            {{ end }}
+        {{ end }}
+        name="email" placeholder="Email">
+
+        {{ if (.Errors) }}
+            {{ if (.Errors.email) }}
+                <div class="error">{{ .Errors.email }}</div>
+            {{ end }}
+        {{ end }}
+
+    <button type="submit">Submit</button>
+</form>
+{{ end }}
+
+{{ block "display" . }}
+    <div id="contacts">
+    {{ range .Contacts }}
+        {{ template "contact" . }}
+    {{ end }}
+    </div>
+{{ end }}
+
+
+{{ block "contact" . }}
+<div>
+    Name: <span>{{ .Name }}</span>
+    Email: <span>{{ .Email }}</span>
+</div>
+{{ end }}
+
+{{ block "test" . }}
+<div>
+__TESTING__
+</div>
+{{ end }}
