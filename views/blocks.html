@@ -1,0 +1,26 @@
+{{ block "blocks-index" . }}
+<html>
+    <head>
+        <title>Infinite Scroll</title>
+        <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+    </head>
+    <body>
+        <div style="display: flex; flex-direction: column">
+            {{ template "blocks" . }}
+        </div>
+    </body>
+</html>
+{{ end }}
+
+{{ block "blocks" . }}
+    {{ range .Blocks }}
+        <div style="background-color: #eee; margin: 2px">
+            <span>{{ .Id }}</span>
+        </div>
+    {{ end }}
+
+    {{ if .More }}
+        <div hx-trigger="revealed" hx-swap="outerHTML" hx-get="/blocks?start={{ .Next }}"></div>
+    {{ end }}
+{{ end }}
+
