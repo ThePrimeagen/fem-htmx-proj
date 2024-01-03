@@ -36,7 +36,7 @@ type Blocks struct {
 }
 
 func main() {
-	e := echo.New()
+    e := echo.New()
     e.Renderer = NewTemplates()
     e.Use(middleware.Logger())
 
